@@ -26,12 +26,15 @@ namespace zbw.car.rent.api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            #region In Memory Providers
             services.AddSingleton<IDataProvider<Customer>, InMemoryProvider<Customer>>();
             services.AddSingleton<IDataProvider<Car>, InMemoryProvider<Car>>();
             services.AddSingleton<IDataProvider<CarBrand>, InMemoryProvider<CarBrand>>();
             services.AddSingleton<IDataProvider<CarType>, InMemoryProvider<CarType>>();
             services.AddSingleton<IDataProvider<Reservation>, InMemoryProvider<Reservation>>();
             services.AddSingleton<IDataProvider<RentalContract>, InMemoryProvider<RentalContract>>();
+            #endregion
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

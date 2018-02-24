@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using zbw.car.rent.api.Model;
 
-namespace zbw.car.rent.api.Provider.InMemory
+namespace zbw.car.rent.api.Repositories.InMemory
 {
-    public class InMemoryProvider<T>: IDataProvider<T> where T : IDataObj
+    public class InMemoryRepository<T>: IRepository<T> where T : IDataObj
     {
         private IEnumerable<T> _objs = new List<T>();
 

@@ -5,20 +5,20 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using zbw.car.rent.api.Model;
-using zbw.car.rent.api.Provider;
+using zbw.car.rent.api.Repositories;
 
 namespace zbw.car.rent.api.Controllers
 {
     [Route("api/[controller]")]
     public class ContractsController : Controller
     {
-        private readonly IDataProvider<RentalContract> _contractsDataProvider;
-        private readonly IDataProvider<Reservation> _reservationsDataProvider;
+        private readonly IRepository<RentalContract> _contractsRepository;
+        private readonly IRepository<Reservation> _reservationsRepository;
 
-        public ContractsController(IDataProvider<RentalContract> contractsDataProvider, IDataProvider<Reservation> reservationsDataProvider)
+        public ContractsController(IRepository<RentalContract> contractsRepository, IRepository<Reservation> reservationsRepository)
         {
-            _contractsDataProvider = contractsDataProvider;
-            _reservationsDataProvider = reservationsDataProvider;
+            _contractsRepository = contractsRepository;
+            _reservationsRepository = reservationsRepository;
         }
 
         [HttpGet]
@@ -27,7 +27,7 @@ namespace zbw.car.rent.api.Controllers
         {
             try
             {
-                var objs = await _contractsDataProvider.GetAllAsync();
+                var objs = await _contractsRepository.GetAllAsync();
                 return Ok(objs);
             }
             catch (Exception e)
@@ -42,7 +42,7 @@ namespace zbw.car.rent.api.Controllers
         {
             try
             {
-                var obj = await _contractsDataProvider.GetAsync(id);
+                var obj = await _contractsRepository.GetAsync(id);
                 if (obj == null)
                     return NotFound(id);
 
@@ -65,12 +65,12 @@ namespace zbw.car.rent.api.Controllers
             {
                 if (contract.ReservationId != 0)
                 {
-                    var reservation = await _reservationsDataProvider.GetAsync(contract.ReservationId);
+                    var reservation = await _reservationsRepository.GetAsync(contract.ReservationId);
                     reservation.State = ReservationState.Contracted;
-                    await _reservationsDataProvider.UpdateAsync(contract.ReservationId, reservation);
+                    await _reservationsRepository.UpdateAsync(contract.ReservationId, reservation);
                 }
 
-                var obj = await _contractsDataProvider.AddAsync(contract);
+                var obj = await _contractsRepository.AddAsync(contract);
                 return CreatedAtRoute("GetContract", new { id = obj.Id }, obj);
             }
             catch (Exception e)
@@ -84,11 +84,11 @@ namespace zbw.car.rent.api.Controllers
         {
             try
             {
-                var exists = await _contractsDataProvider.GetAsync(id) != null;
+                var exists = await _contractsRepository.GetAsync(id) != null;
                 if (!exists)
                     return NotFound($"No Object found with ID {id}");
 
-                await _contractsDataProvider.UpdateAsync(id, reservation);
+                await _contractsRepository.UpdateAsync(id, reservation);
                 return Ok();
             }
             catch (Exception e)
@@ -102,11 +102,11 @@ namespace zbw.car.rent.api.Controllers
         {
             try
             {
-                var exists = await _contractsDataProvider.GetAsync(id) != null;
+                var exists = await _contractsRepository.GetAsync(id) != null;
                 if (!exists)
                     return NotFound($"No Object found with ID {id}");
 
-                await _contractsDataProvider.RemoveAsync(id);
+                await _contractsRepository.RemoveAsync(id);
                 return NoContent();
             }
             catch (Exception e)

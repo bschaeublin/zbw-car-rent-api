@@ -9,8 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using zbw.car.rent.api.Model;
-using zbw.car.rent.api.Provider;
-using zbw.car.rent.api.Provider.InMemory;
+using zbw.car.rent.api.Repositories;
+using zbw.car.rent.api.Repositories.InMemory;
 
 namespace zbw.car.rent.api
 {
@@ -27,13 +27,13 @@ namespace zbw.car.rent.api
         {
             services.AddMvc();
 
-            #region In Memory Providers
-            services.AddSingleton<IDataProvider<Customer>, InMemoryProvider<Customer>>();
-            services.AddSingleton<IDataProvider<Car>, InMemoryProvider<Car>>();
-            services.AddSingleton<IDataProvider<CarBrand>, InMemoryProvider<CarBrand>>();
-            services.AddSingleton<IDataProvider<CarType>, InMemoryProvider<CarType>>();
-            services.AddSingleton<IDataProvider<Reservation>, InMemoryProvider<Reservation>>();
-            services.AddSingleton<IDataProvider<RentalContract>, InMemoryProvider<RentalContract>>();
+            #region In Memory Repositories
+            services.AddSingleton<IRepository<Customer>, InMemoryRepository<Customer>>();
+            services.AddSingleton<IRepository<Car>, InMemoryRepository<Car>>();
+            services.AddSingleton<IRepository<CarBrand>, InMemoryRepository<CarBrand>>();
+            services.AddSingleton<IRepository<CarType>, InMemoryRepository<CarType>>();
+            services.AddSingleton<IRepository<Reservation>, InMemoryRepository<Reservation>>();
+            services.AddSingleton<IRepository<RentalContract>, InMemoryRepository<RentalContract>>();
             #endregion
         }
 

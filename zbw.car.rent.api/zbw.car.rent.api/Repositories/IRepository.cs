@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using zbw.car.rent.api.Model;
 
-namespace zbw.car.rent.api.Provider
+namespace zbw.car.rent.api.Repositories
 {
-    public interface IDataProvider<T>
+    public interface IRepository<T>
     {
         Task<IEnumerable<T>> GetAllAsync();
         Task<T> GetAsync(int id);

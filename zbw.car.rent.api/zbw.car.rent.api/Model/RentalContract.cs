@@ -9,5 +9,6 @@ namespace zbw.car.rent.api.Model
         public int Days { get; set; }
         public decimal TotalCosts { get; set; }
         public DateTime RentalDate { get; set; }
+        public int ReservationId { get; set; }
     }
 }

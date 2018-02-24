@@ -10,22 +10,24 @@ using zbw.car.rent.api.Provider;
 namespace zbw.car.rent.api.Controllers
 {
     [Route("api/[controller]")]
-    public class CarsController : Controller
+    public class ContractsController : Controller
     {
-        private readonly IDataProvider<Car> _carDataProvider;
+        private readonly IDataProvider<RentalContract> _contractsDataProvider;
+        private readonly IDataProvider<Reservation> _reservationsDataProvider;
 
-        public CarsController(IDataProvider<Car> carDataProvider)
+        public ContractsController(IDataProvider<RentalContract> contractsDataProvider, IDataProvider<Reservation> reservationsDataProvider)
         {
-            _carDataProvider = carDataProvider;
+            _contractsDataProvider = contractsDataProvider;
+            _reservationsDataProvider = reservationsDataProvider;
         }
 
         [HttpGet]
-        [Produces(typeof(IEnumerable<Car>))]
+        [Produces(typeof(IEnumerable<RentalContract>))]
         public async Task<IActionResult> GetAll()
         {
             try
             {
-                var objs = await _carDataProvider.GetAllAsync();
+                var objs = await _contractsDataProvider.GetAllAsync();
                 return Ok(objs);
             }
             catch (Exception e)
@@ -34,13 +36,13 @@ namespace zbw.car.rent.api.Controllers
             }
         }
 
-        [HttpGet("{id}", Name = "GetCar")]
-        [Produces(typeof(Car))]
+        [HttpGet("{id}", Name = "GetContract")]
+        [Produces(typeof(RentalContract))]
         public async Task<IActionResult> Get(int id)
         {
             try
             {
-                var obj = await _carDataProvider.GetAsync(id);
+                var obj = await _contractsDataProvider.GetAsync(id);
                 if (obj == null)
                     return NotFound(id);
 
@@ -53,16 +55,23 @@ namespace zbw.car.rent.api.Controllers
         }
 
         [HttpPost]
-        [Produces(typeof(Car))]
-        public async Task<IActionResult> Create([FromBody]Car car)
+        [Produces(typeof(RentalContract))]
+        public async Task<IActionResult> Create([FromBody]RentalContract contract)
         {
-            if (car == null)
-                return BadRequest($"{nameof(car)} must not be null!");
+            if (contract == null)
+                return BadRequest($"{nameof(contract)} must not be null!");
 
             try
             {
-                var obj = await _carDataProvider.AddAsync(car);
-                return CreatedAtRoute("GetCar", new { id = obj.Id }, obj);
+                if (contract.ReservationId != 0)
+                {
+                    var reservation = await _reservationsDataProvider.GetAsync(contract.ReservationId);
+                    reservation.State = ReservationState.Contracted;
+                    await _reservationsDataProvider.UpdateAsync(contract.ReservationId, reservation);
+                }
+
+                var obj = await _contractsDataProvider.AddAsync(contract);
+                return CreatedAtRoute("GetContract", new { id = obj.Id }, obj);
             }
             catch (Exception e)
             {
@@ -71,15 +80,15 @@ namespace zbw.car.rent.api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody]Car car)
+        public async Task<IActionResult> Update(int id, [FromBody]RentalContract reservation)
         {
             try
             {
-                var exists = await _carDataProvider.GetAsync(id) != null;
+                var exists = await _contractsDataProvider.GetAsync(id) != null;
                 if (!exists)
                     return NotFound($"No Object found with ID {id}");
 
-                await _carDataProvider.UpdateAsync(id, car);
+                await _contractsDataProvider.UpdateAsync(id, reservation);
                 return Ok();
             }
             catch (Exception e)
@@ -93,12 +102,12 @@ namespace zbw.car.rent.api.Controllers
         {
             try
             {
-                var exists = await _carDataProvider.GetAsync(id) != null;
+                var exists = await _contractsDataProvider.GetAsync(id) != null;
                 if (!exists)
                     return NotFound($"No Object found with ID {id}");
 
-                await _carDataProvider.RemoveAsync(id);
-                return Ok();
+                await _contractsDataProvider.RemoveAsync(id);
+                return NoContent();
             }
             catch (Exception e)
             {

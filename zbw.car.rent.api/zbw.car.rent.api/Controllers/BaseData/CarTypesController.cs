@@ -7,25 +7,25 @@ using Microsoft.AspNetCore.Mvc;
 using zbw.car.rent.api.Model;
 using zbw.car.rent.api.Provider;
 
-namespace zbw.car.rent.api.Controllers
+namespace zbw.car.rent.api.Controllers.Administration
 {
-    [Route("api/[controller]")]
-    public class CarsController : Controller
+    [Route("api/basedata/[controller]")]
+    public class CarTypesController : Controller
     {
-        private readonly IDataProvider<Car> _carDataProvider;
+        private readonly IDataProvider<CarType> _typeDataProvider;
 
-        public CarsController(IDataProvider<Car> carDataProvider)
+        public CarTypesController(IDataProvider<CarType> typeDataProvider)
         {
-            _carDataProvider = carDataProvider;
+            _typeDataProvider = typeDataProvider;
         }
 
         [HttpGet]
-        [Produces(typeof(IEnumerable<Car>))]
-        public async Task<IActionResult> GetAll()
+        [Produces(typeof(IEnumerable<CarType>))]
+        public async Task<IActionResult> GetAllTypes()
         {
             try
             {
-                var objs = await _carDataProvider.GetAllAsync();
+                var objs = await _typeDataProvider.GetAllAsync();
                 return Ok(objs);
             }
             catch (Exception e)
@@ -34,13 +34,13 @@ namespace zbw.car.rent.api.Controllers
             }
         }
 
-        [HttpGet("{id}", Name = "GetCar")]
-        [Produces(typeof(Car))]
-        public async Task<IActionResult> Get(int id)
+        [HttpGet("{id}", Name = "GetCarType")]
+        [Produces(typeof(CarType))]
+        public async Task<IActionResult> GetType(int id)
         {
             try
             {
-                var obj = await _carDataProvider.GetAsync(id);
+                var obj = await _typeDataProvider.GetAsync(id);
                 if (obj == null)
                     return NotFound(id);
 
@@ -53,16 +53,16 @@ namespace zbw.car.rent.api.Controllers
         }
 
         [HttpPost]
-        [Produces(typeof(Car))]
-        public async Task<IActionResult> Create([FromBody]Car car)
+        [Produces(typeof(CarType))]
+        public async Task<IActionResult> CreateType([FromBody]CarType carType)
         {
-            if (car == null)
-                return BadRequest($"{nameof(car)} must not be null!");
+            if (carType == null)
+                return BadRequest($"{nameof(carType)} must not be null!");
 
             try
             {
-                var obj = await _carDataProvider.AddAsync(car);
-                return CreatedAtRoute("GetCar", new { id = obj.Id }, obj);
+                var obj = await _typeDataProvider.AddAsync(carType);
+                return CreatedAtRoute("GetCarType", new { id = obj.Id }, obj);
             }
             catch (Exception e)
             {
@@ -71,15 +71,15 @@ namespace zbw.car.rent.api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody]Car car)
+        public async Task<IActionResult> UpdateType(int id, [FromBody]CarType carType)
         {
             try
             {
-                var exists = await _carDataProvider.GetAsync(id) != null;
+                var exists = await _typeDataProvider.GetAsync(id) != null;
                 if (!exists)
                     return NotFound($"No Object found with ID {id}");
 
-                await _carDataProvider.UpdateAsync(id, car);
+                await _typeDataProvider.UpdateAsync(id, carType);
                 return Ok();
             }
             catch (Exception e)
@@ -89,15 +89,15 @@ namespace zbw.car.rent.api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteType(int id)
         {
             try
             {
-                var exists = await _carDataProvider.GetAsync(id) != null;
+                var exists = await _typeDataProvider.GetAsync(id) != null;
                 if (!exists)
                     return NotFound($"No Object found with ID {id}");
 
-                await _carDataProvider.RemoveAsync(id);
+                await _typeDataProvider.RemoveAsync(id);
                 return Ok();
             }
             catch (Exception e)

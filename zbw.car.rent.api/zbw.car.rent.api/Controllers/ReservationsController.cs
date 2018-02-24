@@ -10,22 +10,22 @@ using zbw.car.rent.api.Provider;
 namespace zbw.car.rent.api.Controllers
 {
     [Route("api/[controller]")]
-    public class CarsController : Controller
+    public class ReservationsController : Controller
     {
-        private readonly IDataProvider<Car> _carDataProvider;
+        private readonly IDataProvider<Reservation> _reservationsDataProvider;
 
-        public CarsController(IDataProvider<Car> carDataProvider)
+        public ReservationsController(IDataProvider<Reservation> reservationsDataProvider)
         {
-            _carDataProvider = carDataProvider;
+            _reservationsDataProvider = reservationsDataProvider;
         }
 
         [HttpGet]
-        [Produces(typeof(IEnumerable<Car>))]
+        [Produces(typeof(IEnumerable<Reservation>))]
         public async Task<IActionResult> GetAll()
         {
             try
             {
-                var objs = await _carDataProvider.GetAllAsync();
+                var objs = await _reservationsDataProvider.GetAllAsync();
                 return Ok(objs);
             }
             catch (Exception e)
@@ -34,13 +34,13 @@ namespace zbw.car.rent.api.Controllers
             }
         }
 
-        [HttpGet("{id}", Name = "GetCar")]
-        [Produces(typeof(Car))]
+        [HttpGet("{id}", Name = "GetReservation")]
+        [Produces(typeof(Reservation))]
         public async Task<IActionResult> Get(int id)
         {
             try
             {
-                var obj = await _carDataProvider.GetAsync(id);
+                var obj = await _reservationsDataProvider.GetAsync(id);
                 if (obj == null)
                     return NotFound(id);
 
@@ -53,16 +53,16 @@ namespace zbw.car.rent.api.Controllers
         }
 
         [HttpPost]
-        [Produces(typeof(Car))]
-        public async Task<IActionResult> Create([FromBody]Car car)
+        [Produces(typeof(Reservation))]
+        public async Task<IActionResult> Create([FromBody]Reservation reservation)
         {
-            if (car == null)
-                return BadRequest($"{nameof(car)} must not be null!");
+            if (reservation == null)
+                return BadRequest($"{nameof(reservation)} must not be null!");
 
             try
             {
-                var obj = await _carDataProvider.AddAsync(car);
-                return CreatedAtRoute("GetCar", new { id = obj.Id }, obj);
+                var obj = await _reservationsDataProvider.AddAsync(reservation);
+                return CreatedAtRoute("GetReservation", new { id = obj.Id }, obj);
             }
             catch (Exception e)
             {
@@ -71,15 +71,15 @@ namespace zbw.car.rent.api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody]Car car)
+        public async Task<IActionResult> Update(int id, [FromBody]Reservation reservation)
         {
             try
             {
-                var exists = await _carDataProvider.GetAsync(id) != null;
+                var exists = await _reservationsDataProvider.GetAsync(id) != null;
                 if (!exists)
                     return NotFound($"No Object found with ID {id}");
 
-                await _carDataProvider.UpdateAsync(id, car);
+                await _reservationsDataProvider.UpdateAsync(id, reservation);
                 return Ok();
             }
             catch (Exception e)
@@ -93,12 +93,12 @@ namespace zbw.car.rent.api.Controllers
         {
             try
             {
-                var exists = await _carDataProvider.GetAsync(id) != null;
+                var exists = await _reservationsDataProvider.GetAsync(id) != null;
                 if (!exists)
                     return NotFound($"No Object found with ID {id}");
 
-                await _carDataProvider.RemoveAsync(id);
-                return Ok();
+                await _reservationsDataProvider.RemoveAsync(id);
+                return NoContent();
             }
             catch (Exception e)
             {

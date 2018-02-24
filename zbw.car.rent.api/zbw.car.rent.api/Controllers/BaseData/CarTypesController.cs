@@ -70,15 +70,15 @@ namespace zbw.car.rent.api.Controllers.BaseData
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateType(int id, [FromBody]CarType carType)
+        public async Task<IActionResult> UpdateType([FromBody]CarType carType)
         {
             try
             {
-                var exists = await _typeRepository.GetAsync(id) != null;
+                var exists = await _typeRepository.GetAsync(carType.Id) != null;
                 if (!exists)
-                    return NotFound($"No Object found with ID {id}");
+                    return NotFound($"No Object found with ID {carType.Id}");
 
-                await _typeRepository.UpdateAsync(id, carType);
+                await _typeRepository.UpdateAsync(carType);
                 return Ok();
             }
             catch (Exception e)

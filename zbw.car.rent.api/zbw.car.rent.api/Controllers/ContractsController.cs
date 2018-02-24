@@ -67,7 +67,7 @@ namespace zbw.car.rent.api.Controllers
                 {
                     var reservation = await _reservationsRepository.GetAsync(contract.ReservationId);
                     reservation.State = ReservationState.Contracted;
-                    await _reservationsRepository.UpdateAsync(contract.ReservationId, reservation);
+                    await _reservationsRepository.UpdateAsync(reservation);
                 }
 
                 var obj = await _contractsRepository.AddAsync(contract);
@@ -80,15 +80,15 @@ namespace zbw.car.rent.api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody]RentalContract reservation)
+        public async Task<IActionResult> Update([FromBody]RentalContract contract)
         {
             try
             {
-                var exists = await _contractsRepository.GetAsync(id) != null;
+                var exists = await _contractsRepository.GetAsync(contract.Id) != null;
                 if (!exists)
-                    return NotFound($"No Object found with ID {id}");
+                    return NotFound($"No Object found with ID {contract.Id}");
 
-                await _contractsRepository.UpdateAsync(id, reservation);
+                await _contractsRepository.UpdateAsync(contract);
                 return Ok();
             }
             catch (Exception e)

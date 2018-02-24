@@ -71,15 +71,15 @@ namespace zbw.car.rent.api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody]Car car)
+        public async Task<IActionResult> Update([FromBody]Car car)
         {
             try
             {
-                var exists = await _carRepository.GetAsync(id) != null;
+                var exists = await _carRepository.GetAsync(car.Id) != null;
                 if (!exists)
-                    return NotFound($"No Object found with ID {id}");
+                    return NotFound($"No Object found with ID {car.Id}");
 
-                await _carRepository.UpdateAsync(id, car);
+                await _carRepository.UpdateAsync(car);
                 return Ok();
             }
             catch (Exception e)

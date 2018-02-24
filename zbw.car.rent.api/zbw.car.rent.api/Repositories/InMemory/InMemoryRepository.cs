@@ -7,9 +7,9 @@ namespace zbw.car.rent.api.Repositories.InMemory
 {
     public class InMemoryRepository<T>: IRepository<T> where T : IDataObj
     {
-        private IEnumerable<T> _objs = new List<T>();
+        private List<T> _objs = new List<T>();
 
-        public Task<IEnumerable<T>> GetAllAsync()
+        public Task<List<T>> GetAllAsync()
         {
             return Task.Run(() => _objs);
         }
@@ -24,7 +24,7 @@ namespace zbw.car.rent.api.Repositories.InMemory
             return Task.Run(() =>
             {
                 obj.Id = _objs.Any() ? _objs.Max(c => c.Id) + 1 : 1;
-                ((List<T>) _objs).Add(obj);
+                _objs.Add(obj);
                 return obj;
             });
         }
@@ -33,18 +33,18 @@ namespace zbw.car.rent.api.Repositories.InMemory
         {
             return Task.Run(() =>
             {
-                ((List<T>)_objs).RemoveAll(o => o.Id == id);
+                _objs.RemoveAll(o => o.Id == id);
             });
         }
 
-        public async Task UpdateAsync(int id, T obj)
+        public async Task UpdateAsync(T obj)
         {
-            var old = await GetAsync(id);
+            var old = await GetAsync(obj.Id);
 
             await Task.Run(() =>
             {
-                var index = ((List<T>) _objs).IndexOf(old);
-                ((List<T>)_objs)[index] = obj;
+                var index = _objs.IndexOf(old);
+                _objs[index] = obj;
             });
         }
     }

@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using zbw.car.rent.api.Model;
 using zbw.car.rent.api.Repositories;
 
-namespace zbw.car.rent.api.Controllers.Administration
+namespace zbw.car.rent.api.Controllers.BaseData
 {
     [Route("api/basedata/[controller]")]
     public class CarClassesController : Controller
@@ -71,15 +70,15 @@ namespace zbw.car.rent.api.Controllers.Administration
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateClass(int id, [FromBody]CarClass carClass)
+        public async Task<IActionResult> UpdateClass([FromBody]CarClass carClass)
         {
             try
             {
-                var exists = await _classRepository.GetAsync(id) != null;
+                var exists = await _classRepository.GetAsync(carClass.Id) != null;
                 if (!exists)
-                    return NotFound($"No Object found with ID {id}");
+                    return NotFound($"No Object found with ID {carClass.Id}");
 
-                await _classRepository.UpdateAsync(id, carClass);
+                await _classRepository.UpdateAsync(carClass);
                 return Ok();
             }
             catch (Exception e)

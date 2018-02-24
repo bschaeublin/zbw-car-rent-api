@@ -3,42 +3,49 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using zbw.car.rent.api.Model;
+using zbw.car.rent.api.Provider;
 
 namespace zbw.car.rent.api.Controllers
 {
     [Route("api/[controller]")]
     public class CarsController : Controller
     {
-        // GET api/values
+        private readonly IDataProvider<Car> _carDataProvider;
+
+        public CarsController(IDataProvider<Car> carDataProvider)
+        {
+            _carDataProvider = carDataProvider;
+        }
+
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IEnumerable<Car>> Get()
         {
-            return new string[] { "value1", "value2" };
+            return await _carDataProvider.GetAllAsync();
         }
 
-        // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<Car> Get(int id)
         {
-            return "value";
+            return await _carDataProvider.GetAsync(id);
         }
 
-        // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public async Task<Car> Post([FromBody]Car car)
         {
+            return await _carDataProvider.AddAsync(car);
         }
 
-        // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public async Task Put(int id, [FromBody]Car car)
         {
+           await _carDataProvider.UpdateAsync(id, car);
         }
 
-        // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
+            await _carDataProvider.RemoveAsync(id);
         }
     }
 }

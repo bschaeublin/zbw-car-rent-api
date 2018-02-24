@@ -2,7 +2,7 @@ using System;
 
 namespace zbw.car.rent.api.Model
 {
-    public class Reservation
+    public class Reservation : IDataObj
     {
         public int Id { get; set; }
         public Car Car { get; set; }

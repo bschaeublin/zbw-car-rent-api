@@ -24,7 +24,7 @@ namespace zbw.car.rent.api.Provider.InMemory
         {
             return Task.Run(() =>
             {
-                obj.Id = _objs.Max(c => c.Id) + 1;
+                obj.Id = _objs.Any() ? _objs.Max(c => c.Id) + 1 : 1;
                 ((List<T>) _objs).Add(obj);
                 return obj;
             });

@@ -18,7 +18,7 @@ namespace zbw.car.rent.api
 {
     public class Startup
     {
-        public bool ProdMode = true;
+        public bool ProdMode = false;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -28,6 +28,15 @@ namespace zbw.car.rent.api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllHeaders", builder => {
+                    builder.AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
+                });
+            });
             services.AddMvc();
 
             if (ProdMode)
@@ -63,8 +72,9 @@ namespace zbw.car.rent.api
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseCors("AllowAllHeaders");
             app.UseMvc();
+
         }
     }
 }

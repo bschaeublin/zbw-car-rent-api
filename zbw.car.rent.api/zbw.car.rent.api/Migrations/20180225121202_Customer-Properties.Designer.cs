@@ -12,9 +12,10 @@ using zbw.car.rent.api.Repositories.Database;
 namespace zbw.car.rent.api.Migrations
 {
     [DbContext(typeof(CarRentDbContext))]
-    partial class CarRentDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180225121202_Customer-Properties")]
+    partial class CustomerProperties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -106,7 +107,7 @@ namespace zbw.car.rent.api.Migrations
 
                     b.Property<string>("LastName");
 
-                    b.Property<string>("PhoneNumber");
+                    b.Property<string>("PhoneNumer");
 
                     b.HasKey("Id");
 

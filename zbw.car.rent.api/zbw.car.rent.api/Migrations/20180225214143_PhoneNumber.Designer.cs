@@ -12,9 +12,10 @@ using zbw.car.rent.api.Repositories.Database;
 namespace zbw.car.rent.api.Migrations
 {
     [DbContext(typeof(CarRentDbContext))]
-    partial class CarRentDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180225214143_PhoneNumber")]
+    partial class PhoneNumber
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

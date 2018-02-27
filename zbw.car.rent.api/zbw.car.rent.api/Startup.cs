@@ -48,6 +48,7 @@ namespace zbw.car.rent.api
                 services.AddScoped<IRepository<Car>, DatabaseRepository<Car>>();
                 services.AddScoped<IRepository<CarBrand>, DatabaseRepository<CarBrand>>();
                 services.AddScoped<IRepository<CarType>, DatabaseRepository<CarType>>();
+                services.AddScoped<IRepository<CarClass>, DatabaseRepository<CarClass>>();
                 services.AddScoped<IRepository<Reservation>, DatabaseRepository<Reservation>>();
                 services.AddScoped<IRepository<RentalContract>, DatabaseRepository<RentalContract>>();
                 #endregion
@@ -59,6 +60,7 @@ namespace zbw.car.rent.api
                 services.AddSingleton<IRepository<Car>, InMemoryRepository<Car>>();
                 services.AddSingleton<IRepository<CarBrand>, InMemoryRepository<CarBrand>>();
                 services.AddSingleton<IRepository<CarType>, InMemoryRepository<CarType>>();
+                services.AddSingleton<IRepository<CarClass>, InMemoryRepository<CarClass>>();
                 services.AddSingleton<IRepository<Reservation>, InMemoryRepository<Reservation>>();
                 services.AddSingleton<IRepository<RentalContract>, InMemoryRepository<RentalContract>>();
                 #endregion

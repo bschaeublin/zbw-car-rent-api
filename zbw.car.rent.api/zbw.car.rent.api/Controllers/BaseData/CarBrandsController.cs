@@ -61,7 +61,7 @@ namespace zbw.car.rent.api.Controllers.BaseData
             try
             {
                 var obj = await _brandRepository.AddAsync(carBrand);
-                return CreatedAtRoute("GetCar", new { id = obj.Id }, obj);
+                return CreatedAtRoute("GetCarBrand", new { id = obj.Id }, obj);
             }
             catch (Exception e)
             {

@@ -1,0 +1,10 @@
+language: csharp
+mono: none
+solution: zbw.car.rent.api.sln
+dotnet: 2.1.4
+dist: trusty
+sudo: required
+script:
+- cd ./zbw.car.rent.api
+- dotnet restore
+- dotnet build

@@ -14,5 +14,6 @@ script:
 - cd ./zbw.car.rent.api
 - dotnet restore
 - dotnet build
+- cd ../
 - sonar-scanner
 

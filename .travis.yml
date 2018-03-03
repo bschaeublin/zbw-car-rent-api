@@ -4,6 +4,6 @@ dotnet: 2.1.4
 dist: trusty
 sudo: required
 script:
-- cd ./zbw.car.rent.api.sln
+- cd ./zbw.car.rent.api
 - dotnet restore
 - dotnet build

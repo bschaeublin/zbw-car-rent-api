@@ -1,5 +1,5 @@
 # zbw-car-rent-api
-car rent project
+car rent project (asp.net core)
 
-Travis
-[![Build Status](https://travis-ci.org/bschaeublin/zbw-car-rent-client.svg?branch=develop)](https://travis-ci.org/bschaeublin/zbw-car-rent-client)
+# Travis
+[![Build Status](https://travis-ci.org/bschaeublin/zbw-car-rent-api.svg?branch=develop)](https://travis-ci.org/bschaeublin/zbw-car-rent-api)

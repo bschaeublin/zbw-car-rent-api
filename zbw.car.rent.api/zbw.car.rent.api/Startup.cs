@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using zbw.car.rent.api.Demo;
 using zbw.car.rent.api.Model;
 using zbw.car.rent.api.Repositories;
 using zbw.car.rent.api.Repositories.Database;
@@ -42,7 +43,6 @@ namespace zbw.car.rent.api
             if (ProdMode)
             {
                 services.AddDbContext<CarRentDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
                 #region Database Repositories
                 services.AddScoped<IRepository<Customer>, DatabaseRepository<Customer>>();
                 services.AddScoped<IRepository<Car>, DatabaseRepository<Car>>();
@@ -66,9 +66,11 @@ namespace zbw.car.rent.api
                 #endregion
             }
 
+            services.AddSingleton<DemoInitializer>();
+            
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public async void Configure(IApplicationBuilder app, IHostingEnvironment env, DemoInitializer demoInitializer)
         {
             if (env.IsDevelopment())
             {
@@ -76,7 +78,7 @@ namespace zbw.car.rent.api
             }
             app.UseCors("AllowAllHeaders");
             app.UseMvc();
-
+            await demoInitializer.InitDemoDataAsync();
         }
     }
 }

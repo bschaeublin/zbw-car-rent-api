@@ -16,4 +16,7 @@ script:
 - dotnet build
 - cd ../
 - sonar-scanner
+deploy:
+  provider: azure_web_apps
+  verbose: true
 

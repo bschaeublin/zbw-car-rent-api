@@ -1,5 +1,7 @@
 # zbw-car-rent-api
 car rent project - api
+https://zbw-car-rent-api.azurewebsites.net/customers
+
 - dot net core 2.0.3
 - entity framework core
 - prod = false for inmemory-storage

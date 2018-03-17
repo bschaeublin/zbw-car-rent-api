@@ -19,7 +19,6 @@ namespace zbw.car.rent.api
 {
     public class Startup
     {
-        public bool ProdMode = false;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -40,7 +39,7 @@ namespace zbw.car.rent.api
             });
             services.AddMvc();
 
-            if (ProdMode)
+            if (Configuration.GetValue<string>("UseDbProvider").ToLower() == "entityframework")
             {
                 services.AddDbContext<CarRentDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
                 #region Database Repositories

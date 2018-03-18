@@ -1,15 +1,16 @@
 # zbw-car-rent-api
 car rent project - api
-https://zbw-car-rent-api.azurewebsites.net/customers
-
 - dot net core 2.0.3
 - entity framework core
-- prod = false for inmemory-storage
+- (appSettings.json) Setting "UseDbProvider" allowed values are "entityframework" or "inmemory"
 
-# Travis
+## See it live on Azure (master)
+https://zbw-car-rent-api.azurewebsites.net/customers
+
+## Travis
 [![Build Status](https://travis-ci.org/bschaeublin/zbw-car-rent-api.svg?branch=develop)](https://travis-ci.org/bschaeublin/zbw-car-rent-api)
 
-# SonarQube
+## SonarQube
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=zbw-car-rent-api&metric=alert_status)](https://sonarcloud.io/dashboard?id=zbw-car-rent-api)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=zbw-car-rent-api&metric=bugs)](https://sonarcloud.io/project/issues?id=zbw-car-rent-api&resolved=false&types=BUG)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=zbw-car-rent-api&metric=code_smells)](https://sonarcloud.io/project/issues?id=zbw-car-rent-api&resolved=false&types=CODE_SMELL)

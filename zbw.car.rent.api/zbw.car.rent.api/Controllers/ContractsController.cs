@@ -102,9 +102,16 @@ namespace zbw.car.rent.api.Controllers
         {
             try
             {
-                var exists = await _contractsRepository.GetAsync(id) != null;
-                if (!exists)
+                var contract = await _contractsRepository.GetAsync(id);
+                if (contract == null)
                     return NotFound($"No Object found with ID {id}");
+
+                if (contract.ReservationId != 0)
+                {
+                    var reservation = await _reservationsRepository.GetAsync(contract.ReservationId);
+                    reservation.State = ReservationState.Reserved;
+                    await _reservationsRepository.UpdateAsync(reservation);
+                }
 
                 await _contractsRepository.RemoveAsync(id);
                 return NoContent();

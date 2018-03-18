@@ -5,7 +5,7 @@ car rent project - api
 - (appSettings.json) Setting "UseDbProvider" allowed values are "entityframework" or "inmemory"
 
 ## See it live on Azure (master)
-https://zbw-car-rent-api.azurewebsites.net/customers
+https://zbw-car-rent-api.azurewebsites.net/api/customers
 
 ## Travis
 [![Build Status](https://travis-ci.org/bschaeublin/zbw-car-rent-api.svg?branch=develop)](https://travis-ci.org/bschaeublin/zbw-car-rent-api)

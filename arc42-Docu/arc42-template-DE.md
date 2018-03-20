@@ -1,9 +1,11 @@
 ![alt text][logo]
 
-[logo]: ../images/logo.png "Logo Title Text 2"
+[logo]: ./images/logo.png "Logo Title Text 2"
 
 Autovermietung CarRent
 ======================
+
+Diese Dokumentation wurde auf der Grundlage von arc 42 erstellt.
 
 **Über arc42**
 
@@ -27,49 +29,102 @@ Aufgabenstellung {#_aufgabenstellung}
 
 CarRent ist die schnelle und einfache Art, ein Auto für den nächsten Trip zu reservieren. 
 Die Reservierung soll einfach und unkompliziert sein.
+CarRent Webclient soll für die Mitarbeiter von CarRent und deren Kunden eine intuitive Software sein um 
+Autos zu reservieren und mieten.
+
+Das Ziel ist eine Software, welche über Webclients gleichzeitig Fahrzeuge reserviert und verwaltet werden können.
  
 
 Qualitätsziele {#_qualit_tsziele}
 --------------
+1. Performance: CarRent soll schnelle Antwortzeiten (<1 Sek.) und für parallele Anfragen in kleiner Anzahl ausgelegt sein.
+2. Datenqualität: Keine Redundanzen, referentielle Integrität und Datenkonsistenz.
+3. Usability: Die Benutzeroberfläche soll übersichtlich und intuitiv gestaltet sein.
+4. Installierbarkeit: CarRent soll einfach eingerichtet werden können.
+5. Erweiterbarkeit: CarRent soll für zukünftige Erweiterungen offen sein.
 
 Stakeholder {#_stakeholder}
 -----------
 
-+-----------------+-----------------+-----------------------------------+
-| Rolle           | Kontakt         | Erwartungshaltung                 |
-+=================+=================+===================================+
-| *&lt;Rolle-1&gt | *&lt;Kontakt-1& | *&lt;Erwartung-1&gt;*             |
-| ;*              | gt;*            |                                   |
-+-----------------+-----------------+-----------------------------------+
-| *&lt;Rolle-2&gt | *&lt;Kontakt-2& | *&lt;Erwartung-2&gt;*             |
-| ;*              | gt;*            |                                   |
-+-----------------+-----------------+-----------------------------------+
++----------------------+---------------------+-----------------------------------+
+| Rolle                | Kontakt             | Erwartungshaltung                 |
++======================+=====================+===================================+
+| CEO CarRent          | Peter Müller        | Stabile und flexible Software, Kostenkontrolle 
++----------------------+---------------------+-----------------------------------+
+| Kunden CarRent       |  K.Meier Vertretung | Schnelle Antwortzeiten, Intuitive Bedienung 
++----------------------+---------------------+-----------------------------------+
+| Mitarbeiter CarRent  |  M. Bär Vertretung  | Inutive Bedienung, Erweiterbarkeit 
++----------------------+---------------------+-----------------------------------+
+| Softwareentwickler   |  B. Schäublin       | Klare Anforderungen 
++----------------------+---------------------+-----------------------------------+
+
 
 Randbedingungen {#section-architecture-constraints}
 ===============
+<dl>
+<dt> Developer Tools </dt>
+<dd> VS2017 / R# … </dd>
+<dd> Visual Studio Code / … </dd>
+<dt>  Client Tier </dt>
+<dd> Angular </dd>
+<dd> Apache / Nginx </dd>
+<dt>  Server Tier </dt>
+<dd> ASP.NET Core </dd>
+<dd> NLog </dd>
+<dd> NHibernate if RDBMS </dd>
+<dd> MongoDB if DocumentDB </dd>
+<dt>  Testing </dt>
+<dd> Z.B MSTest / Moq / FluentAssertion </dd>
+<dt>  Data Tier (Choose) </dt>
+<dd> SQL Server 2016 Express | Developer </dd>
+<dd> MongoDB </dd>
+<dt>  Build, Release und Metrik Tools </dt>
+<dd> NuGet </dd>
+<dd> Cake </dd>
+<dd> Sonar </dd>
+<dd> Proget </dd>
+</dl>
 
 Kontextabgrenzung {#section-system-scope-and-context}
 =================
+CarRent ist ein egenständiges Reservierungssystem für Autos.  
+Systemintern gibt es eine Schnittstelle zwischen GUI und BussinesAplication sowie zwischen BussinesAplication und Datenbank.  
+CarRent hat keine Schnittstellen zu Fremdsystemen wie z.B. Zahlungssystemen oder Reparaturverwaltung für Autos.
 
 Fachlicher Kontext {#_fachlicher_kontext}
 ------------------
 
-**&lt;Diagramm und/oder Tabelle&gt;**
+![alt text](./images/FachlicherKontext.png "Fachlicher Kontext")
 
-**&lt;optional: Erläuterung der externen fachlichen Schnittstellen&gt;**
+Kunden benutzen in einer ersten Phase das CarRent System nur über einen Sachbearbeiter. Der Sachbearbeiter führt alle interaktionen mit dem CarRent-System über das WebFrontend.  
+In einer späteren Phase erhalten die Kunden ein eigenes Benutzerinterface. In diese können sie dann selbstständig Autos reservieren.
 
 Technischer Kontext {#_technischer_kontext}
 -------------------
 
-**&lt;Diagramm oder Tabelle&gt;**
+![alt text](./images/DeploymentDiagramm.png "Technischer Kontext")
 
-**&lt;optional: Erläuterung der externen technischen
-Schnittstellen&gt;**
-
-**&lt;Mapping fachliche auf technische Schnittstellen&gt;**
+Über ein WebBrowser wird via HTTP auf den WebClient zugegriffen.  
+Der WebClient macht seinerseitz Abragen über HTTP auf die WebAPI.
+Diese speichert dann die Daten lokal auf der MSSQL Datenbank mit einem SQL-Protokoll.
 
 Lösungsstrategie {#section-solution-strategy}
 ================
+Die folgende Tabelle stellt die Qualitätsziele von CarRent passenden Architekturansätzen gegenüber, und erleichtert so einen Einstieg in die Lösung.
+
++----------------------+-------------------------------------------------------------+
+| Qualitätsziel        | Dem zuträgliche Ansätze in der Architektur            
++======================+=============================================================+
+| Performance          | mit den HTTP Requests werden nur einzelne Daten abgefragt, keine komplexen Strukturen         
++----------------------+-------------------------------------------------------------+
+| Datenqualität        | Die MSSQL Datenbank übernimmt dei persistente Speicherung der Daten. 
++----------------------+-------------------------------------------------------------+
+| Usability            | Das WebFrontend wird mit Agular einach und übersichtlich gestaltet        
++----------------------+-------------------------------------------------------------+
+| Installierbarkeit    | Das WebFrontend benötigt keine Installation.       
++----------------------+-------------------------------------------------------------+
+| Erweiterbarkeit      | Objektorientierte Programmierung und stabile Interfaces     
++----------------------+-------------------------------------------------------------+
 
 Bausteinsicht {#section-building-block-view}
 =============

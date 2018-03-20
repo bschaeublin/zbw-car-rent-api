@@ -140,7 +140,7 @@ Wichtige Schnittstellen
 Laufzeitsicht
 =============
 
-Eine Laufzeitsicht ist im Moment nicht dokumentiert, da kein komplexer Ablauf der
+Eine Laufzeitsicht ist im Moment nicht dokumentiert, da kein komplexer Ablauf gefordert ist.
 
 Verteilungssicht
 ================
@@ -181,7 +181,8 @@ Risiken und technische Schulden
  
 Durch die kurze Entwicklungszeit sind nur begrenzt Tests geschrieben.
 Für eine Erweiterung der Software sollte erst eine grosse Testabdeckung erreicht werden. 
-Weiter sollte ein separates GUI für den Kunden entworfen werden, damit der Kunde nicht mehr über den Sachbearbeiter Autos reservieren kann.
+Weiter sollte ein separates GUI für den Kunden entworfen werden, damit der Kunde nicht mehr über den Sachbearbeiter Autos reservieren kann.  
+Der Logging-Kontext ist zur Zeit noch nicht umgesetzt.
 
 Glossar
 =======

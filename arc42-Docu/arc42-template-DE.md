@@ -46,17 +46,14 @@ Qualitätsziele {#_qualit_tsziele}
 Stakeholder {#_stakeholder}
 -----------
 
-+----------------------+---------------------+-----------------------------------+
-| Rolle                | Kontakt             | Erwartungshaltung                 |
-+======================+=====================+===================================+
-| CEO CarRent          | Peter Müller        | Stabile und flexible Software, Kostenkontrolle 
-+----------------------+---------------------+-----------------------------------+
-| Kunden CarRent       |  K.Meier Vertretung | Schnelle Antwortzeiten, Intuitive Bedienung 
-+----------------------+---------------------+-----------------------------------+
-| Mitarbeiter CarRent  |  M. Bär Vertretung  | Inutive Bedienung, Erweiterbarkeit 
-+----------------------+---------------------+-----------------------------------+
-| Softwareentwickler   |  B. Schäublin       | Klare Anforderungen 
-+----------------------+---------------------+-----------------------------------+
+
+| Rolle                | Kontakt             | Erwartungshaltung                              |
+|----------------------|---------------------|------------------------------------------------|
+| CEO CarRent          | Peter Müller        | Stabile und flexible Software, Kostenkontrolle |
+| Kunden CarRent       |  K.Meier Vertretung | Schnelle Antwortzeiten, Intuitive Bedienung    |
+| Mitarbeiter CarRent  |  M. Bär Vertretung  | Inutive Bedienung, Erweiterbarkeit             |
+| Softwareentwickler   |  B. Schäublin       | Klare Anforderungen                            |
+
 
 
 Randbedingungen {#section-architecture-constraints}
@@ -112,19 +109,13 @@ Lösungsstrategie {#section-solution-strategy}
 ================
 Die folgende Tabelle stellt die Qualitätsziele von CarRent passenden Architekturansätzen gegenüber, und erleichtert so einen Einstieg in die Lösung.
 
-+----------------------+-------------------------------------------------------------+
-| Qualitätsziel        | Dem zuträgliche Ansätze in der Architektur            
-+======================+=============================================================+
-| Performance          | mit den HTTP Requests werden nur einzelne Daten abgefragt, keine komplexen Strukturen         
-+----------------------+-------------------------------------------------------------+
-| Datenqualität        | Die MSSQL Datenbank übernimmt dei persistente Speicherung der Daten. 
-+----------------------+-------------------------------------------------------------+
-| Usability            | Das WebFrontend wird mit Agular einach und übersichtlich gestaltet        
-+----------------------+-------------------------------------------------------------+
-| Installierbarkeit    | Das WebFrontend benötigt keine Installation.       
-+----------------------+-------------------------------------------------------------+
-| Erweiterbarkeit      | Objektorientierte Programmierung und stabile Interfaces     
-+----------------------+-------------------------------------------------------------+
+| Qualitätsziel        | Dem zuträgliche Ansätze in der Architektur                                            |
+|----------------------|---------------------------------------------------------------------------------------|
+| Performance          | mit den HTTP Requests werden nur einzelne Daten abgefragt, keine komplexen Strukturen |        
+| Datenqualität        | Die MSSQL Datenbank übernimmt dei persistente Speicherung der Daten.                  |
+| Usability            | Das WebFrontend wird mit Agular einach und übersichtlich gestaltet                    |
+| Installierbarkeit    | Das WebFrontend benötigt keine Installation.                                          |
+| Erweiterbarkeit      | Objektorientierte Programmierung und stabile Interfaces                               |
 
 Bausteinsicht {#section-building-block-view}
 =============

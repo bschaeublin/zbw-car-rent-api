@@ -15,3 +15,6 @@ https://zbw-car-rent-api.azurewebsites.net/api/customers
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=zbw-car-rent-api&metric=bugs)](https://sonarcloud.io/project/issues?id=zbw-car-rent-api&resolved=false&types=BUG)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=zbw-car-rent-api&metric=code_smells)](https://sonarcloud.io/project/issues?id=zbw-car-rent-api&resolved=false&types=CODE_SMELL)
 [![Duplicated Lines](https://sonarcloud.io/api/project_badges/measure?project=zbw-car-rent-api&metric=duplicated_lines_density)](https://sonarcloud.io/component_measures?id=zbw-car-rent-api&metric=duplicated_lines_density)
+
+## Documentation
+See https://github.com/bschaeublin/zbw-car-rent-api/blob/develop/arc42-Docu/arc42-template-DE.md

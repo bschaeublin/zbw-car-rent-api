@@ -127,15 +127,23 @@ Whitebox Gesamtsystem
 
 Begründung
 
-:   *&lt;Erläuternder Text&gt;*
+Im Web-Frontent werden Kunden, Cars und Reservationen dargestellt.  
+In der API wird die Bussinesslogik der Reservierungsplattform für Autos, Kunden, Reservationen und die Persistierung umgesetzt.
 
 Enthaltene Bausteine
 
-:   *&lt;Beschreibung der enhaltenen Bausteine (Blackboxen)&gt;*
+<dl>
+<dt>Customer</dt>
+<dd>Kunde enthält die Infos zu den jeweiligen Kunden. Ein Kunde kann erst ein Autoklasse und dann ein spezifisches Auto ab einem Datum für eine Anzahl Tage reservieren.</dd>
+<dt>Cars</dt>
+<dd>Autos einthält die Informationen zu den jeweiligen Autos. Ein Auto ist eine bestimmten Klasse zugeordnet.</dd>
+<dt>Reservations</dt>
+<dd>Eine Reservation benötigt ein Kunde, eine Autoklasse, dann ein spezifisches Auto. Dieses Auto wird dann ab einem Datum für eine Anzahl Tage reserviert.</dd>
+</dl>
 
 Wichtige Schnittstellen
 
-:   *&lt;Beschreibung wichtiger Schnittstellen&gt;*
+
 
 Laufzeitsicht
 =============
@@ -154,10 +162,6 @@ Begründung
 
 Die Vorgabe des Projekts war für die Infrastruktur entscheidend und musste wie folgt beschrieben umgesetzt werden:  
 Das System soll aus einem Server-Teil und einem Web-Client bestehen. Die Daten sollen mittels OR-Mapper oder JDBC in eine relationale Datenbank gespeichert werden können. Die Business Logik soll auf einem Application Server laufen und einen RESTFul WebService Schnittstelle (WebAPI) anbieten. Der Web-Client benutzt die WebAPI um die Funktionen auszuführen.
-
-Qualitäts- und/oder Leistungsmerkmale
-
-:   *&lt;Erläuternder Text&gt;*
 
 Konzepte
 =========================

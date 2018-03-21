@@ -167,6 +167,11 @@ Konzepte
 Entwurfsentscheidungen 
 ======================
 
+Wir haben uns für MSSQL entschieden, da wir bereits Erfahrung mit MSSQL und Entity Framework haben.
+Azure kam zum Zug, da ein automatisches Deployment einfach umzusetzen ist.
+Weiter haben wir uns für Angular entschieden, da es ein aktueller Standard der Webentwicklung ist und wir ebenfalls erfahren darin sind.
+SonarQube wurde zur Messung von Mektriken eingesetzt, da wir dies einmal ausprobieren wollten.
+
 Qualitätsanforderungen
 ======================
 

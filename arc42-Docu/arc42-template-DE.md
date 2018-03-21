@@ -113,9 +113,9 @@ Die folgende Tabelle stellt die Qualitätsziele von CarRent passenden Architektu
 |----------------------|---------------------------------------------------------------------------------------|
 | Performance          | mit den HTTP Requests werden nur einzelne Daten abgefragt, keine komplexen Strukturen |        
 | Datenqualität        | Die MSSQL Datenbank übernimmt die persistente Speicherung der Daten.                  |
-| Usability            | Das WebFrontend wird mit Agular einach und übersichtlich gestaltet                    |
+| Usability            | Das WebFrontend wird mit Agular einach und übersichtlich gestaltet.                    |
 | Installierbarkeit    | Das WebFrontend benötigt keine Installation.                                          |
-| Erweiterbarkeit      | Objektorientierte Programmierung und stabile Interfaces                               |
+| Erweiterbarkeit      | Objektorientierte Programmierung und stabile Interfaces.                               |
 
 Bausteinsicht
 =============
@@ -171,19 +171,24 @@ Wir haben uns für MSSQL entschieden, da wir bereits Erfahrung mit MSSQL und Ent
 Azure kam zum Zug, da ein automatisches Deployment einfach umzusetzen ist.
 Weiter haben wir uns für Angular entschieden, da es ein aktueller Standard der Webentwicklung ist und wir ebenfalls erfahren darin sind.
 SonarQube wurde zur Messung von Mektriken eingesetzt, da wir dies einmal ausprobieren wollten.
+Travis wurd als Buildserver eingesetzt aus dem Grund da es ein Gratistool ist.
 
 Qualitätsanforderungen
 ======================
-
-Qualitätsbaum 
--------------
-
-Qualitätsszenarien
-------------------
+<dl>
+<dt>Codemetriken:</dt>
+<dd>Wir setzen auf die Qualitätsregeln welche in SonarQube standardmässig hinterlegt sind. Mit Ausnahme von Codecoverage, da noch keine Unittests geschrieben wurden. SonarQube lässt den Build failen, wenn das Qualtygate nicht erreicht wird.</dd>
+<dt>Installierbarkeit</dt>
+<dd>Client und API werde automatisch auf die Azure deployed, wenn in den Master gepusht wird. Eine manuelle Installation ist nicht nötig.</dd>
+<dd>Die Datenbank wird beim Starten der API automatisch auf die neuste Version migriert. Dies macht manuelle Schritte überflüssig.</dd>
+<dt>Usability</dt>
+<dd>Durch den Einsatz von Material Design Komponenten von Google wird die Benutzerfreundlichkeit und Accessibility (Bedienbarkeit für beeinträchtigete Benutzer) automatisch unterstützt. </dd>
+</dl>
 
 Risiken und technische Schulden
 ===============================
  
+Durch das Setzen von der Umgebungsvariabel "Development" wurde auf der Azure sichergestellt, dass Datenmanipulationen nicht permanent sind und mit Beispieldaten vorabgefült sind. Und bei einem Recycle der API zurückgesetzt werden. Durch setzen der Umgebungsvariabel "Production" wird Entity Framework als Persistentzschicht aktiviert. Da die Seite nicht geschützt ist, wollen wir so verhindern, dass unbefugte Manipulationen auf der Datenbank durchgeführt werden.   
 Durch die kurze Entwicklungszeit sind nur begrenzt Tests geschrieben.
 Für eine Erweiterung der Software sollte erst eine grosse Testabdeckung erreicht werden. 
 Weiter sollte ein separates GUI für den Kunden entworfen werden, damit der Kunde nicht mehr über den Sachbearbeiter Autos reservieren kann.  
@@ -194,7 +199,7 @@ Glossar
 
 | Begriff              | Definition                                   |
 |----------------------|----------------------------------------------|
-| *&lt;Begriff-1&gt;*  | *&lt;Definition-1&gt;*                       |
-| *&lt;Begriff-2*      | *&lt;Definition-2&gt;*                       |
-
+| Entity Framework     | Object-Relationship Mapper für MSSQL         |
+| Material Design      | ist eine Designrichtlinie von Google         |
+| Accessibility        | Bedienhilfe für beeinträchtigete Benutzer    |
 

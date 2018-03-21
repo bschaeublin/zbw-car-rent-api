@@ -141,10 +141,6 @@ Enthaltene Bausteine
 <dd>Eine Reservation benötigt ein Kunde, eine Autoklasse, dann ein spezifisches Auto. Dieses Auto wird dann ab einem Datum für eine Anzahl Tage reserviert.</dd>
 </dl>
 
-Wichtige Schnittstellen
-
-
-
 Laufzeitsicht
 =============
 
